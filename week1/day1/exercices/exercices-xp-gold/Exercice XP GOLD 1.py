@@ -4,8 +4,8 @@ match month:
     case  3 | 4 | 5:
         print("Spring")
     case  6 | 7 | 8:
-        print("Summer")  # This will execute
+        print("Summer") 
     case  9 | 10 | 11:
-        print("Autumn")  # Like 'default' in switch
+        print("Autumn")  
     case  12 | 1 | 2:
         print("winter")
