@@ -1,20 +1,14 @@
-class Dog():
-    
-    def __init__(self, name_of_the_dog, height_of_dog):
-        print("A new dog has been initialized !")
-        print("His name is", name_of_the_dog)
-        self.name = name_of_the_dog
-        self.height= height_of_dog
-        
-        
-        
-    def bark(self):
-        print(f"The dog's name is :{self.name}")
-        
-    def jump(self):
-        print(f"The dog's name is :{self.name},and his height is : {self.height} ")
-        
-shelter_dog=Dog('Rex',30)
+class MyClass(object):
+    def func(self):
+        print("I'm being called from the Parent class")
 
-shelter_dog.jump()
-shelter_dog.bark()
+
+class ChildClass(MyClass):
+    def func(self):
+        print("I'm actually being called from the Child class")
+        print("But...")
+        # Calling the `func()` method from the Parent class.
+        super(ChildClass, self).func()
+
+my_instance_2 = ChildClass()
+my_instance_2.func()
