@@ -1,0 +1,2 @@
+CREATE DATABASE bootcamp
+CREATE TABLE students
