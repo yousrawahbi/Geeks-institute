@@ -31,4 +31,4 @@ SELECT COUNT(*) AS actor_count FROM actors;
 INSERT INTO actors (first_name, last_name, age, number_oscars) 
 VALUES ('Clara', NULL, NULL, 1);
 
--- Erreur, car on a déclaré first_name et last_name NOT NULL donc on doit les remplir
+-- Erreur, car on a déclaré Date et last_name NOT NULL donc on doit les remplir
