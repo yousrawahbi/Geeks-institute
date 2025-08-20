@@ -1,4 +1,4 @@
-CREATE TABLE actors(
+﻿CREATE TABLE actors(
  actor_id SERIAL PRIMARY KEY,
  first_name VARCHAR (50) NOT NULL,
  last_name VARCHAR (100) NOT NULL,
@@ -29,6 +29,6 @@ SELECT COUNT(*) AS actor_count FROM actors;
  --qst2 Try to add a new actor with some blank fields. 
  --What do you think the outcome will be ?
 INSERT INTO actors (first_name, last_name, age, number_oscars) 
-VALUES (NULL, NULL, 30, 1);
+VALUES ('Clara', NULL, NULL, 1);
 
 -- Erreur, car on a déclaré first_name et last_name NOT NULL donc on doit les remplir
