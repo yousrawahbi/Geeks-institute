@@ -57,18 +57,25 @@ LIMIT 10 OFFSET 10;
 SELECT c.customer_id, c.first_name, c.last_name,p.amount, p.payment_date
 FROM customer c 
 JOIN payment p ON  p.customer_id=c.customer_id
-ORDER BY customer_id ASC
+ORDER BY customer_id ASC;
 
 
 --qst13 You need to check your inventory. Write a query to get all the movies which are not in inventory.
 SELECT f.film_id, f.title
 FROM film f 
 LEFT JOIN inventory i ON  f.film_id=i.film_id
-WHERE film_id is NULL
+WHERE film_id is NULL;
 
 --qst14 Write a query to find which city is in which country.
 SELECT c.city, cn.country
 FROM city c
-JOIN country cn ON c.country_id=cn.country_id
+JOIN country cn ON c.country_id=cn.country_id;
 
---qst15 Bonus You want to be able to see how your sellers have been doing? Write a query to get the customer’s id, names (first and last), the amount and the date of payment ordered by the id of the staff member who sold them the dvd.
+--qst15 Bonus You want to be able to see how your sellers have been doing?
+-- Write a query to get the customer’s id, names (first and last),
+--the amount and the date of payment ordered by the id of the staff member who sold them the dvd.
+SELECT c.customer_id, c.first_name, c.last_name,p.amount, p.payment_date, s.staff_id
+FROM customer c 
+JOIN payment p ON  p.customer_id=c.customer_id
+JOIN staff s ON  s.staff_id=p.staff_id
+ORDER BY staff_id ASC;
