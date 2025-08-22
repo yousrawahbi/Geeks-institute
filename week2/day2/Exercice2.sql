@@ -67,6 +67,8 @@ LEFT JOIN inventory i ON  f.film_id=i.film_id
 WHERE film_id is NULL
 
 --qst14 Write a query to find which city is in which country.
-
+SELECT c.city, cn.country
+FROM city c
+JOIN country cn ON c.country_id=cn.country_id
 
 --qst15 Bonus You want to be able to see how your sellers have been doing? Write a query to get the customer’s id, names (first and last), the amount and the date of payment ordered by the id of the staff member who sold them the dvd.
