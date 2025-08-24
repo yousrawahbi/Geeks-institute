@@ -19,6 +19,26 @@
             "name": "public",
             "username": "postgres",
             "password": "root"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "database": "dvdrental",
+            "name": "dvdrental",
+            "password": "root",
+            "username": "postgres"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "mydt",
+            "database": "mydt",
+            "username": "postgres",
+            "password": "root"
         }
     ]
 }
