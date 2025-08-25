@@ -1,4 +1,6 @@
---Exercice 1
+---Exercice 1
+--Part1
+
 
 --Get a list of all the languages, from the language table.
 
@@ -11,7 +13,7 @@ SELECT name FROM language
  INNER JOIN language l ON f.language_id= l.language_id;
 
 --Get all languages, even if there are no films in those languages –
--- select the following details : film title, description, and language name.
+--select the following details : film title, description, and language name.
 
 SELECT  l.name, f.title, f.description
  FROM film f
@@ -19,7 +21,7 @@ RIGHT JOIN language l ON f.language_id= l.language_id;
 
 
 --Create a new table called new_film with the following columns :
--- id, name. Add some new films to the table.
+--id, name. Add some new films to the table.
 
 CREATE TABLE new_film (
     id SERIAL PRIMARY KEY,
@@ -58,7 +60,7 @@ SELECT * FROM customer_review;
 --Delete a film that has a review from the new_film table, what happens to the customer_review table?
 
 DELETE FROM new_film WHERE id = 1;
---  the film will be deleted from the table customer_review too
+--the film will be deleted from the table customer_review too
 
 
 
@@ -73,7 +75,7 @@ WHERE film_id IN (1, 2);
 
 --Which foreign keys (references) are defined for the customer table? How does this affect the way in which we INSERT into the customer table?
 
--- store_id and adress_id
+--store_id and adress_id
 
 
 
