@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <a href="{{ url_for('index') }}" class="text-xl font-bold">School Management</a>
+                
+                <!-- Search Form -->
+                <form action="{{ url_for('students') }}" method="GET" class="hidden md:block">
+                    <div class="relative">
+                        <input type="text" name="search" placeholder="Search students..." 
+                               class="px-4 py-2 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                        <button type="submit" class="absolute right-3 top-2 text-gray-500">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="{{ url_for('index') }}" class="hover:bg-blue-500 px-3 py-2 rounded">Dashboard</a>
+                    <a href="{{ url_for('students') }}" class="hover:bg-blue-500 px-3 py-2 rounded">Students</a>
+                    <a href="{{ url_for('teachers') }}" class="hover:bg-blue-500 px-3 py-2 rounded">Teachers</a>
+                    <a href="{{ url_for('courses') }}" class="hover:bg-blue-500 px-3 py-2 rounded">Courses</a>
+                    <a href="{{ url_for('grades') }}" class="hover:bg-blue-500 px-3 py-2 rounded">Grades</a>
+                    <a href="{{ url_for('stats') }}" class="hover:bg-blue-500 px-3 py-2 rounded">Statistics</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-blue-700 px-4 pb-4">
+            <a href="{{ url_for('index') }}" class="block py-2 hover:bg-blue-600 px-3 rounded">Dashboard</a>
+            <a href="{{ url_for('students') }}" class="block py-2 hover:bg-blue-600 px-3 rounded">Students</a>
+            <a href="{{ url_for('teachers') }}" class="block py-2 hover:bg-blue-600 px-3 rounded">Teachers</a>
+            <a href="{{ url_for('courses') }}" class="block py-2 hover:bg-blue-600 px-3 rounded">Courses</a>
+            <a href="{{ url_for('grades') }}" class="block py-2 hover:bg-blue-600 px-3 rounded">Grades</a>
+            <a href="{{ url_for('stats') }}" class="block py-2 hover:bg-blue-600 px-3 rounded">Statistics</a>
+            
+            <form action="{{ url_for('students') }}" method="GET" class="mt-3">
+                <div class="relative">
+                    <input type="text" name="search" placeholder="Search students..." 
+                           class="w-full px-4 py-2 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    <button type="submit" class="absolute right-3 top-2 text-gray-500">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="container mx-auto px-4 mt-4">
+                {% for category, message in messages %}
+                    <div class="p-4 rounded-md mb-4 {% if category == 'success' %}bg-green-100 text-green-800{% else %}bg-red-100 text-red-800{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 School Management System. YOUSRA WAHBI's rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Delete confirmation
+        function confirmDelete(itemType, id) {
+            if (confirm(`Are you sure you want to delete this ${itemType}?`)) {
+                // Use consistent URL pattern for all types
+                window.location.href = `/${itemType}s/${id}/delete`;
+            }
+        }
+    </script>
+    
+    <!-- Chart.js for statistics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
