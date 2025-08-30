@@ -7,7 +7,6 @@ class MenuItem:
 
     
     def save(self):
-        """Save the menu item to the database"""
         try:
             connection = get_db_connection.connect()
             cursor = connection.cursor()
@@ -45,7 +44,6 @@ class MenuItem:
                 connection.close()
                 
     def delete(self):
-        """Delete the menu item from the database"""
         try:
             connection = get_db_connection.connect()
             cursor = connection.cursor()
