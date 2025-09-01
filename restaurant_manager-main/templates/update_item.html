@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Update Item - Restaurant Menu Manager{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card">
+            <div class="card-header bg-warning">
+                <h5 class="mb-0"><i class="bi bi-pencil"></i> Update Menu Item</h5>
+            </div>
+            <div class="card-body">
+                <!-- Current Item Info -->
+                <div class="alert alert-info">
+                    <h6><i class="bi bi-info-circle"></i> Current Item Details</h6>
+                    <p class="mb-1"><strong>Name:</strong> {{ item.item_name }}</p>
+                    <p class="mb-0"><strong>Price:</strong> ${{ item.item_price }}</p>
+                </div>
+
+                <form method="POST" novalidate>
+                    <div class="mb-3">
+                        <label for="item_name" class="form-label">
+                            <i class="bi bi-tag"></i> Item Name *
+                        </label>
+                        <input type="text" 
+                               class="form-control" 
+                               id="item_name" 
+                               name="item_name" 
+                               value="{{ request.form.item_name if request.form.item_name else item.item_name }}"
+                               required 
+                               maxlength="30"
+                               placeholder="Enter item name">
+                        <div class="form-text">Maximum 30 characters</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="item_price" class="form-label">
+                            <i class="bi bi-currency-dollar"></i> Price *
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" 
+                                   class="form-control" 
+                                   id="item_price" 
+                                   name="item_price" 
+                                   value="{{ request.form.item_price if request.form.item_price else item.item_price }}"
+                                   required 
+                                   min="0" 
+                                   step="1"
+                                   placeholder="0">
+                        </div>
+                        <div class="form-text">Enter price as a whole number (no decimals)</div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('menu') }}" class="btn btn-secondary me-md-2">
+                            <i class="bi bi-arrow-left"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="bi bi-check-circle"></i> Update Item
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="card mt-4 bg-light">
+            <div class="card-body">
+                <h6 class="card-title"><i class="bi bi-lightning"></i> Quick Actions</h6>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="{{ url_for('view_item', item_id=item.item_id) }}" class="btn btn-info btn-sm">
+                        <i class="bi bi-eye"></i> View Item
+                    </a>
+                    <a href="{{ url_for('delete_item', item_id=item.item_id) }}" 
+                       class="btn btn-danger btn-sm"
+                       onclick="return confirm('Are you sure you want to delete {{ item.item_name }}?')">
+                        <i class="bi bi-trash"></i> Delete Item
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

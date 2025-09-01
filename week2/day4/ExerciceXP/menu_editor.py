@@ -50,7 +50,7 @@ def add_item_to_menu():
 
 def remove_item_from_menu():
     name = input("Enter item name to delete: ")
-    item = MenuItem(name, 0)  # Price doesn't matter for deletion
+    item = MenuItem(name, 0)  
     try:
         item.delete()
         print("Item was deleted successfully!")

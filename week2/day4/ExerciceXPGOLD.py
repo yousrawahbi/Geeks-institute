@@ -42,7 +42,8 @@ while True:
                             break
                     new_password = input("Choose a password: ").strip()
                     
-                    # Add new user to dictionary
+                
+                
                     users[new_username] = new_password
                     print("Account created successfully! You can now log in.")
             

@@ -1,0 +1,14 @@
+# Python files
+doc1.py
+get-pip.py
+test.py
+
+# SQL files and databases
+dvdrental.session.sql
+Hollywood.session.sql
+mydt.session.sql
+Public.session.sql
+restaurant.session.sql
+school.session.sql
+users.db
+users.sql
