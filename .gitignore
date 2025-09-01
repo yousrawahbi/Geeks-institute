@@ -1,3 +1,4 @@
+.gitignore
 # Python files
 doc1.py
 get-pip.py
