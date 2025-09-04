@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXERCICE2</title>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>EXERCICE2</h1>
+    <form>
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="firstname"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lastname"><br><br>
+  <input type="submit" value="Submit" id="submit">
+</form> 
+<ul class="usersAnswer"></ul>
+    <script>
+        // 1. Retrieve the form and console.log it
+        const form = document.querySelector('form');
+        console.log("Form element:", form);
+        
+        // 2. Retrieve the inputs by their id and console.log them
+        const fnameInput = document.getElementById('fname');
+        const lnameInput = document.getElementById('lname');
+        console.log("First name input:", fnameInput);
+        console.log("Last name input:", lnameInput);
+        
+        // 3. Retrieve the inputs by their name attribute and console.log them
+        const fnameByName = document.querySelector('input[name="firstname"]');
+        const lnameByName = document.querySelector('input[name="lastname"]');
+        console.log("Input with name 'firstname':", fnameByName);
+        console.log("Input with name 'lastname':", lnameByName);
+        
+        // 4. Add submit event listener to the form
+        form.addEventListener('submit', function(event) {
+
+            event.preventDefault();
+            
+
+            const firstName = fnameInput.value.trim();
+            const lastName = lnameInput.value.trim();
+            
+            if (firstName === '' || lastName === '') {
+                alert('Please fill in both first and last name');
+                return;
+            }
+            
+            const usersAnswerList = document.querySelector('.usersAnswer');
+            usersAnswerList.innerHTML = ''; 
+            
+            const firstNameItem = document.createElement('li');
+            firstNameItem.textContent = firstName;
+            
+            const lastNameItem = document.createElement('li');
+            lastNameItem.textContent = lastName;
+            
+
+            usersAnswerList.appendChild(firstNameItem);
+            usersAnswerList.appendChild(lastNameItem);
+        });
+
+    </script>
+</body>
+</html>
