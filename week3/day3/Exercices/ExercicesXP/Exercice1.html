@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 1</title>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Exercise 1</h1>
+    
+
+        <article>
+            <h1>Some Facts</h1>
+            <h2>The Chocolate</h2>
+            <h3>History of the chocolate</h3>
+            <p>Chocolate is made from tropical Theobroma cacao tree seeds. 
+            Its earliest use dates back to the Olmec civilization in Mesoamerica.</p>
+            <p>After the European discovery of the Americas, chocolate became 
+            very popular in the wider world, and its demand exploded.</p>
+            <p>Chocolate has since become a popular food product that millions enjoy every day, 
+            thanks to its unique, rich, and sweet taste.</p> 
+            <p>But what effect does eating chocolate have on our health?</p> 
+        </article>
+                <div>
+            <button id="boldBtn">Make Paragraphs Bold</button>
+            <button id="resetBtn">Reset Page</button>
+        </div>
+
+        <div class="output">
+            <h3>Console Output:</h3>
+            <div id="consoleOutput"></div>
+        </div>
+    </div>
+
+    <script>
+            // 1. Retrieve the h1 and console.log it
+        const h1Element = document.querySelector('h1');
+        console.log(h1Element.textContent);
+
+        // 2. Remove the last paragraph in the article tag
+        const article = document.querySelector('article');
+        const paragraphs = article.querySelectorAll('p');
+        if (paragraphs.length > 0) {
+            paragraphs[paragraphs.length - 1].remove();
+        }
+
+        // 3. Add event listener to change h2 background to red when clicked
+        const h2Element = document.querySelector('h2');
+        h2Element.addEventListener('click', function() {
+            this.style.backgroundColor = 'red';
+        });
+
+        // 4. Add event listener to hide h3 when clicked
+        const h3Element = document.querySelector('h3');
+        h3Element.addEventListener('click', function() {
+            this.style.display = 'none';
+        });
+
+        // 5. Add button to make all paragraphs bold
+        const boldButton = document.getElementById('boldBtn');
+        boldButton.addEventListener('click', function() {
+            const allParagraphs = document.querySelectorAll('p');
+            allParagraphs.forEach(p => {
+                p.style.fontWeight = 'bold';
+            });
+        });
+    </script>
+</body>
+</html>

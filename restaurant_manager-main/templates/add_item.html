@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Add New Item - Restaurant Menu Manager{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="bi bi-plus-circle"></i> Add New Menu Item</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" novalidate>
+                    <div class="mb-3">
+                        <label for="item_name" class="form-label">
+                            <i class="bi bi-tag"></i> Item Name *
+                        </label>
+                        <input type="text" 
+                               class="form-control" 
+                               id="item_name" 
+                               name="item_name" 
+                               value="{{ request.form.item_name if request.form.item_name }}"
+                               required 
+                               maxlength="30"
+                               placeholder="Enter item name (e.g., Grilled Salmon)">
+                        <div class="form-text">Maximum 30 characters</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="item_price" class="form-label">
+                            <i class="bi bi-currency-dollar"></i> Price *
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" 
+                                   class="form-control" 
+                                   id="item_price" 
+                                   name="item_price" 
+                                   value="{{ request.form.item_price if request.form.item_price }}"
+                                   required 
+                                   min="0" 
+                                   step="1"
+                                   placeholder="0">
+                        </div>
+                        <div class="form-text">Enter price as a whole number (no decimals)</div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('menu') }}" class="btn btn-secondary me-md-2">
+                            <i class="bi bi-arrow-left"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-check-circle"></i> Add Item
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Help Card -->
+        <div class="card mt-4 bg-light">
+            <div class="card-body">
+                <h6 class="card-title"><i class="bi bi-info-circle"></i> Tips for Adding Items</h6>
+                <ul class="small mb-0">
+                    <li>Use clear, descriptive names for your menu items</li>
+                    <li>Prices should be entered as whole numbers (e.g., 25 for $25)</li>
+                    <li>Item names must be unique in your menu</li>
+                    <li>Consider adding popular dishes that customers love</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

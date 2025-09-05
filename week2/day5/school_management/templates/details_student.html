@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-gray-800">Student Details</h1>
+        <div class="flex space-x-2">
+            <a href="{{ url_for('edit_student', id=student.id) }}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
+                <i class="fas fa-edit mr-2"></i>Edit
+            </a>
+            <button onclick="confirmDelete('student', {{ student.id }})" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
+                <i class="fas fa-trash mr-2"></i>Delete
+            </button>
+        </div>
+    </div>
+    
+    <div class="bg-white p-6 rounded-lg shadow mb-6">
+        <h2 class="text-xl font-semibold mb-4">Personal Information</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <p class="text-sm text-gray-600">Full Name</p>
+                <p class="text-lg font-medium">{{ student.first_name }} {{ student.last_name }}</p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-600">Email</p>
+                <p class="text-lg font-medium">{{ student.email }}</p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-600">Phone</p>
+                <p class="text-lg font-medium">{{ student.phone or 'Not provided' }}</p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-600">Major</p>
+<p class="text-lg font-medium">{{ student.major or 'Undeclared' }}</p>
+</div>
+<div>
+<p class="text-sm text-gray-600">Enrollment Date</p>
+<p class="text-lg font-medium">{{ student.enrollment_date.strftime('%B %d, %Y') }}</p>
+</div>
+<div>
+<p class="text-sm text-gray-600">Student ID</p>
+<p class="text-lg font-medium">{{ student.id }}</p>
+</div>
+</div>
+</div>
+<div class="bg-white p-6 rounded-lg shadow">
+    <h2 class="text-xl font-semibold mb-4">Course Enrollment</h2>
+    {% if enrollments %}
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Code</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Teacher</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Enrollment Date</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for enrollment in enrollments %}
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="{{ url_for('course_details', id=enrollment.course_id) }}" class="text-blue-600 hover:text-blue-800">
+                            {{ enrollment.course_title }}
+                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ enrollment.course_code }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        {% if enrollment.teacher_name %}
+                            <a href="{{ url_for('teacher_details', id=enrollment.teacher_id) }}" class="text-blue-600 hover:text-blue-800">
+                                {{ enrollment.teacher_name }}
+                            </a>
+                        {% else %}
+                            Not assigned
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ enrollment.enrollment_date.strftime('%Y-%m-%d') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-gray-500">This student is not enrolled in any courses.</p>
+    {% endif %}
+    
+    <div class="mt-6">
+        <h2 class="text-xl font-semibold mb-4">Grades</h2>
+        {% if grades %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Grade</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Semester</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Year</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for grade in grades %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ grade.course_title }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 py-1 rounded-full text-xs font-semibold 
+                            {% if grade.grade >= 16 %}bg-green-100 text-green-800
+                            {% elif grade.grade >= 14 %}bg-blue-100 text-blue-800
+                            {% elif grade.grade >= 12 %}bg-yellow-100 text-yellow-800
+                            {% elif grade.grade >= 10 %}bg-orange-100 text-orange-800
+                            {% else %}bg-red-100 text-red-800{% endif %}">
+                            {{ grade.grade }}/20
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ grade.semester }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ grade.year }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-gray-500">No grades recorded for this student.</p>
+        {% endif %}
+    </div>
+</div>
+</div> {% endblock %} ```

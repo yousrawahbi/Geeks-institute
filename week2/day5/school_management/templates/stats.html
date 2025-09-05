@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="text-3xl font-bold text-gray-800 mb-6">School Statistics</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <!-- Course Enrollment Chart -->
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-xl font-semibold mb-4">Course Enrollment</h2>
+        <canvas id="enrollmentChart" width="400" height="250"></canvas>
+    </div>
+    
+    <!-- Grade Distribution Chart -->
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-xl font-semibold mb-4">Grade Distribution</h2>
+        <canvas id="gradeChart" width="400" height="250"></canvas>
+    </div>
+</div>
+
+<!-- Major Statistics -->
+<div class="bg-white p-6 rounded-lg shadow mb-8">
+    <h2 class="text-xl font-semibold mb-4">Students by Major</h2>
+    <canvas id="majorChart" width="400" height="200"></canvas>
+</div>
+
+<!-- Statistics Cards -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+    <div class="bg-blue-100 p-4 rounded-lg shadow">
+        <div class="text-blue-800">
+            <i class="fas fa-users text-3xl mb-2"></i>
+            <h3 class="text-lg font-semibold">Total Students</h3>
+            <p class="text-2xl font-bold">{{ student_count }}</p>
+        </div>
+    </div>
+    
+    <div class="bg-green-100 p-4 rounded-lg shadow">
+        <div class="text-green-800">
+            <i class="fas fa-chalkboard-teacher text-3xl mb-2"></i>
+            <h3 class="text-lg font-semibold">Total Teachers</h3>
+            <p class="text-2xl font-bold">{{ teacher_count }}</p>
+        </div>
+    </div>
+    
+    <div class="bg-purple-100 p-4 rounded-lg shadow">
+        <div class="text-purple-800">
+            <i class="fas fa-book text-3xl mb-2"></i>
+            <h3 class="text-lg font-semibold">Total Courses</h3>
+            <p class="text-2xl font-bold">{{ course_count }}</p>
+        </div>
+    </div>
+    
+    <div class="bg-yellow-100 p-4 rounded-lg shadow">
+        <div class="text-yellow-800">
+            <i class="fas fa-graduation-cap text-3xl mb-2"></i>
+            <h3 class="text-lg font-semibold">Average Grade</h3>
+            <p class="text-2xl font-bold">{{ avg_grade }}/20</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Course Enrollment Chart
+    const enrollmentCtx = document.getElementById('enrollmentChart').getContext('2d');
+    const enrollmentChart = new Chart(enrollmentCtx, {
+        type: 'bar',
+        data: {
+            labels: [{% for stat in enrollment_stats %}'{{ stat.title }}'{% if not loop.last %}, {% endif %}{% endfor %}],
+            datasets: [{
+                label: 'Number of Students',
+                data: [{% for stat in enrollment_stats %}{{ stat.enrollment_count }}{% if not loop.last %}, {% endif %}{% endfor %}],
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+    
+    // Grade Distribution Chart
+    const gradeCtx = document.getElementById('gradeChart').getContext('2d');
+    const gradeChart = new Chart(gradeCtx, {
+        type: 'pie',
+        data: {
+            labels: [{% for stat in grade_distribution %}'{{ stat.grade_letter }}'{% if not loop.last %}, {% endif %}{% endfor %}],
+            datasets: [{
+                data: [{% for stat in grade_distribution %}{{ stat.count }}{% if not loop.last %}, {% endif %}{% endfor %}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+    
+    // Major Statistics Chart
+    const majorCtx = document.getElementById('majorChart').getContext('2d');
+    const majorChart = new Chart(majorCtx, {
+        type: 'doughnut',
+        data: {
+            labels: [{% for stat in major_stats %}'{{ stat.major }}'{% if not loop.last %}, {% endif %}{% endfor %}],
+            datasets: [{
+                data: [{% for stat in major_stats %}{{ stat.count }}{% if not loop.last %}, {% endif %}{% endfor %}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+</script>
+{% endblock %}

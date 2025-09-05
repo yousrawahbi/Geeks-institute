@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Restaurant Menu Manager{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="jumbotron bg-primary text-white p-5 rounded mb-4">
+            <h1 class="display-4"><i class="bi bi-shop"></i> Restaurant Menu Manager</h1>
+            <p class="lead">Manage your restaurant's menu with ease. Add, update, delete, and view menu items.</p>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- View Menu Card -->
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-primary">
+            <div class="card-body text-center">
+                <i class="bi bi-menu-button text-primary display-4 mb-3"></i>
+                <h5 class="card-title">View Menu</h5>
+                <p class="card-text">Display all menu items in a beautiful table format.</p>
+                <a href="{{ url_for('menu') }}" class="btn btn-primary">
+                    <i class="bi bi-eye"></i> View Menu
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Item Card -->
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-success">
+            <div class="card-body text-center">
+                <i class="bi bi-plus-circle text-success display-4 mb-3"></i>
+                <h5 class="card-title">Add New Item</h5>
+                <p class="card-text">Add a new delicious item to your restaurant menu.</p>
+                <a href="{{ url_for('add_item') }}" class="btn btn-success">
+                    <i class="bi bi-plus"></i> Add Item
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Items Card -->
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-info">
+            <div class="card-body text-center">
+                <i class="bi bi-gear text-info display-4 mb-3"></i>
+                <h5 class="card-title">Manage Items</h5>
+                <p class="card-text">Update or delete existing menu items as needed.</p>
+                <a href="{{ url_for('menu') }}" class="btn btn-info">
+                    <i class="bi bi-gear"></i> Manage Items
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="card bg-light">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-info-circle"></i> Quick Actions</h5>
+                <p class="card-text">Here are some quick actions you can perform:</p>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="{{ url_for('menu') }}" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-list"></i> View All Items
+                    </a>
+                    <a href="{{ url_for('add_item') }}" class="btn btn-outline-success btn-sm">
+                        <i class="bi bi-plus"></i> Add New Item
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

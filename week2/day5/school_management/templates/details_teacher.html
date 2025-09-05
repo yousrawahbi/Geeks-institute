@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-gray-800">Teacher Details</h1>
+        <div class="flex space-x-2">
+            <a href="{{ url_for('edit_teacher', id=teacher.id) }}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
+                <i class="fas fa-edit mr-2"></i>Edit
+            </a>
+            <button onclick="confirmDelete('teacher', {{ teacher.id }})" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
+                <i class="fas fa-trash mr-2"></i>Delete
+            </button>
+        </div>
+    </div>
+    
+    <div class="bg-white p-6 rounded-lg shadow mb-6">
+        <h2 class="text-xl font-semibold mb-4">Personal Information</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <p class="text-sm text-gray-600">Full Name</p>
+                <p class="text-lg font-medium">{{ teacher.first_name }} {{ teacher.last_name }}</p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-600">Email</p>
+                <p class="text-lg font-medium">{{ teacher.email }}</p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-600">Phone</p>
+                <p class="text-lg font-medium">{{ teacher.phone or 'Not provided' }}</p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-600">Specialty</p>
+                <p class="text-lg font-medium">{{ teacher.specialty or 'Not specified' }}</p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-600">Hire Date</p>
+                <p class="text-lg font-medium">{{ teacher.hire_date.strftime('%B %d, %Y') }}</p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-600">Teacher ID</p>
+                <p class="text-lg font-medium">{{ teacher.id }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-xl font-semibold mb-4">Courses Taught</h2>
+        {% if courses %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Code</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Credits</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Enrollments</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for course in courses %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <a href="{{ url_for('course_details', id=course.id) }}" class="text-blue-600 hover:text-blue-800">
+                                {{ course.title }}
+                            </a>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ course.code }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ course.credits }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ course.enrollment_count }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-gray-500">This teacher is not assigned to any courses.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

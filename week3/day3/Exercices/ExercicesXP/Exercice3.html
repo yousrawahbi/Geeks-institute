@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXERCICE3</title>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>EXERCICE3</h1>
+<p><strong>Hello</strong> I hope you are enjoying <strong>this</strong> class. At the
+<strong>end</strong> you <strong>will</strong> be great Developers!
+<strong>Enjoy</strong> the <strong>JavaScript </strong> lessons</p>
+    <script>
+        // 1. Declare a global variable named allBoldItems
+        let allBoldItems;
+        
+        // 2. Create a function called getBoldItems()
+        function getBoldItems() {
+            allBoldItems = document.querySelectorAll('#boldParagraph strong');
+            console.log("Bold items:", allBoldItems);
+            return allBoldItems;
+        }
+        
+        // 3. Create a function called highlight()
+        function highlight() {
+            if (!allBoldItems) getBoldItems();
+            allBoldItems.forEach(item => {
+                item.style.color = 'blue';
+            });
+        }
+        
+        // 4. Create a function called returnItemsToDefault()
+        function returnItemsToDefault() {
+            if (!allBoldItems) getBoldItems();
+            allBoldItems.forEach(item => {
+                item.style.color = 'black';
+            });
+        }
+        
+        // 5. Call the functions on mouseover and mouseout
+        const paragraph = document.getElementById('boldParagraph');
+        paragraph.addEventListener('mouseover', highlight);
+        paragraph.addEventListener('mouseout', returnItemsToDefault);
+        
+        // Initialize the bold items
+        getBoldItems();
+
+    </script>
+</body>
+</html>
