@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Data</title>
+</head>
+<body>
+    <section id="display-section">
+        <h2>Submitted Data:</h2>
+        <p id="display-data">Waiting for data...</p>
+    </section>
+
+    <script>
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name');
+        const lastname = urlParams.get('lastname');
+        
+        if (name && lastname) {
+            document.getElementById('display-data').textContent = 
+                `Name: ${name} ${lastname}`;
+        } else {
+            document.getElementById('display-data').textContent = 
+                'No data received. Please go back and fill out the form.';
+        }
+    </script>
+</body>
+</html>
