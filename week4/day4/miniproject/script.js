@@ -116,7 +116,7 @@ document.getElementById('like-quote').addEventListener('click', function() {
 let filteredQuotes = [];
 let currentFilterIndex = -1;
 
-// Filter quotes by author
+
 document.getElementById('filter-form').addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -135,7 +135,6 @@ document.getElementById('filter-form').addEventListener('submit', function(e) {
     }
 });
 
-// Display filtered quote
 function displayFilteredQuote() {
     if (filteredQuotes.length > 0 && currentFilterIndex >= 0) {
         const quote = filteredQuotes[currentFilterIndex];
@@ -147,7 +146,6 @@ function displayFilteredQuote() {
     }
 }
 
-// Navigation buttons
 document.getElementById('prev-quote').addEventListener('click', function() {
     if (filteredQuotes.length > 0) {
         currentFilterIndex = (currentFilterIndex - 1 + filteredQuotes.length) % filteredQuotes.length;
