@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Quote Generator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .quote-section {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        min-height: 200px;
+      }
+      .quote-text {
+        font-size: 18px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        font-style: italic;
+      }
+      .quote-author {
+        font-weight: bold;
+        text-align: right;
+        color: #555;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .form-group {
+        margin: 10px 0;
+      }
+      input,
+      textarea {
+        padding: 8px;
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Quote Generator</h1>
+
+    <section class="quote-section" id="quote-display">
+
+    </section>
+
+    <button id="generate-btn">Generate Quote</button>
+    <hr />
+    <h2>Add New Quote</h2>
+    <form id="add-quote-form">
+      <div class="form-group">
+        <textarea id="new-quote" placeholder="Enter quote" required></textarea>
+      </div>
+      <div class="form-group">
+        <input
+          type="text"
+          id="new-author"
+          placeholder="Enter author"
+          required
+        />
+      </div>
+      <button type="submit">Add Quote</button>
+    </form>
+
+    <hr />
+    <h2>Quote Tools</h2>
+    <button id="count-chars-with-spaces">Count Characters (with spaces)</button>
+    <button id="count-chars-no-spaces">Count Characters (no spaces)</button>
+    <button id="count-words">Count Words</button>
+    <button id="like-quote">Like Quote</button>
+    <hr />
+    <h2>Filter by Author</h2>
+    <form id="filter-form">
+      <div class="form-group">
+        <input
+          type="text"
+          id="filter-author"
+          placeholder="Enter author name"
+          required
+        />
+      </div>
+      <button type="submit">Filter Quotes</button>
+    </form>
+
+    <div id="filter-results">
+
+    </div>
+
+    <div id="navigation-buttons" style="display: none">
+      <button id="prev-quote">Previous</button>
+      <button id="next-quote">Next</button>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
