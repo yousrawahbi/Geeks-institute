@@ -346,14 +346,11 @@
             }
         ];
 
-        // DOM Elements
         const robotsContainer = document.querySelector('.robots-container');
         const searchInput = document.querySelector('.search-input');
 
-        // Display all robots initially
         displayRobots(robots);
 
-        // Search functionality
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
             const filteredRobots = robots.filter(robot => {
@@ -367,7 +364,7 @@
             displayRobots(filteredRobots);
         });
 
-        // Function to display robots
+
         function displayRobots(robotsArray) {
             if (robotsArray.length === 0) {
                 robotsContainer.innerHTML = `
