@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Wars Character Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a2a, #1a1a4a);
+            color: #ffe81f;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 40px;
+            padding: 20px;
+        }
+
+        .title {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #ffe81f;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            background: #ffe81f;
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 232, 31, 0.3);
+        }
+
+        .btn:hover {
+            background: #ffd700;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 232, 31, 0.5);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .character-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid #ffe81f;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+
+        .character-card.visible {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .character-name {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px #ffe81f;
+        }
+
+        .character-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .info-item {
+            background: rgba(255, 232, 31, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ffe81f;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #ffffff;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-value {
+            font-size: 1.2rem;
+            color: #ffe81f;
+        }
+
+        .loading {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .loading.visible {
+            display: flex;
+        }
+
+        .spinner {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 1.5rem;
+            color: #ffffff;
+        }
+
+        .error {
+            display: none;
+            background: rgba(220, 53, 69, 0.8);
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border: 2px solid #dc3545;
+        }
+
+        .error.visible {
+            display: block;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .error-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .character-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, #ffe81f, #ffd700);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #000;
+            border: 4px solid #ffe81f;
+        }
+
+        .footer {
+            margin-top: 40px;
+            color: #ffffff;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">STAR WARS</h1>
+            <p class="subtitle">Character Database</p>
+            <button class="btn" id="getCharacterBtn">
+                <i class="fas fa-jedi"></i> Get Random Character
+            </button>
+        </div>
+
+        <div class="loading" id="loading">
+            <i class="fas fa-jedi spinner"></i>
+            <p class="loading-text">Accessing the Holocron...</p>
+        </div>
+
+        <div class="error" id="error">
+            <i class="fas fa-exclamation-triangle error-icon"></i>
+            <h3>Oh no! Young Jedi...</h3>
+            <p>We couldn't access the Jedi Archives. The force is not with us right now.</p>
+            <p>Please try again later.</p>
+        </div>
+
+        <div class="character-card" id="characterCard">
+            <div class="character-image">
+                <i class="fas fa-jedi"></i>
+            </div>
+            <h2 class="character-name" id="characterName">Loading...</h2>
+            <div class="character-info">
+                <div class="info-item">
+                    <span class="info-label">Height</span>
+                    <span class="info-value" id="characterHeight">...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Gender</span>
+                    <span class="info-value" id="characterGender">...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Birth Year</span>
+                    <span class="info-value" id="characterBirthYear">...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Home World</span>
+                    <span class="info-value" id="characterHomeworld">...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>May the Force be with you • Data provided by SWAPI • Characters: 83</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
