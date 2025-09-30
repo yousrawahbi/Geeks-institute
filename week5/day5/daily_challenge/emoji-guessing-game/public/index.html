@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji Guessing Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .game-area {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .emoji-display {
+            font-size: 8em;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .option-btn {
+            padding: 15px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 10px;
+            background: #f0f0f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .score-display {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0;
+        }
+
+        .feedback {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .next-btn {
+            padding: 12px 30px;
+            font-size: 1.1em;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            display: none;
+            margin: 10px auto;
+        }
+
+        .next-btn:hover {
+            background: #5a6fd8;
+        }
+
+        .leaderboard {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .leaderboard h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .leaderboard-item:last-child {
+            border-bottom: none;
+        }
+
+        .player-name {
+            font-weight: bold;
+        }
+
+        .player-score {
+            color: #667eea;
+        }
+
+        .game-over {
+            text-align: center;
+            display: none;
+        }
+
+        .player-input {
+            margin: 20px 0;
+        }
+
+        .player-input input {
+            padding: 10px;
+            font-size: 1.1em;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            width: 200px;
+        }
+
+        .submit-score-btn {
+            padding: 10px 20px;
+            font-size: 1.1em;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .submit-score-btn:hover {
+            background: #218838;
+        }
+
+        .restart-btn {
+            padding: 12px 30px;
+            font-size: 1.1em;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .restart-btn:hover {
+            background: #ff5252;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Emoji Guessing Game</h1>
+        
+        <div class="game-area" id="gameArea">
+            <div class="score-display" id="scoreDisplay">Score: 0</div>
+            <div class="emoji-display" id="emojiDisplay">🤔</div>
+            <div class="options-grid" id="optionsGrid"></div>
+            <div class="feedback" id="feedback"></div>
+            <button class="next-btn" id="nextBtn">Next Emoji →</button>
+        </div>
+
+        <div class="game-over" id="gameOver">
+            <h2>Game Over!</h2>
+            <p>Your final score: <span id="finalScore">0</span></p>
+            <div class="player-input">
+                <input type="text" id="playerName" placeholder="Enter your name" maxlength="20">
+                <button class="submit-score-btn" id="submitScoreBtn">Submit Score</button>
+            </div>
+            <button class="restart-btn" id="restartBtn">Play Again</button>
+        </div>
+
+        <div class="leaderboard">
+            <h2>🏆 Leaderboard</h2>
+            <div id="leaderboardList"></div>
+        </div>
+    </div>
+
+    <script>
+        class EmojiGame {
+            constructor() {
+                this.score = 0;
+                this.currentQuestion = null;
+                this.isGameActive = true;
+                
+                this.elements = {
+                    emojiDisplay: document.getElementById('emojiDisplay'),
+                    optionsGrid: document.getElementById('optionsGrid'),
+                    scoreDisplay: document.getElementById('scoreDisplay'),
+                    feedback: document.getElementById('feedback'),
+                    nextBtn: document.getElementById('nextBtn'),
+                    gameOver: document.getElementById('gameOver'),
+                    finalScore: document.getElementById('finalScore'),
+                    playerName: document.getElementById('playerName'),
+                    submitScoreBtn: document.getElementById('submitScoreBtn'),
+                    restartBtn: document.getElementById('restartBtn'),
+                    leaderboardList: document.getElementById('leaderboardList')
+                };
+
+                this.bindEvents();
+                this.loadQuestion();
+                this.loadLeaderboard();
+            }
+
+            bindEvents() {
+                this.elements.nextBtn.addEventListener('click', () => {
+                    this.loadQuestion();
+                    this.hideFeedback();
+                });
+
+                this.elements.submitScoreBtn.addEventListener('click', () => {
+                    this.submitScore();
+                });
+
+                this.elements.restartBtn.addEventListener('click', () => {
+                    this.restartGame();
+                });
+            }
+
+            async loadQuestion() {
+                try {
+                    const response = await fetch('/api/question');
+                    this.currentQuestion = await response.json();
+                    
+                    this.displayQuestion();
+                    this.elements.nextBtn.style.display = 'none';
+                } catch (error) {
+                    console.error('Error loading question:', error);
+                }
+            }
+
+            displayQuestion() {
+                this.elements.emojiDisplay.textContent = this.currentQuestion.emoji;
+                this.elements.optionsGrid.innerHTML = '';
+
+                this.currentQuestion.options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'option-btn';
+                    button.textContent = option;
+                    button.addEventListener('click', () => this.handleGuess(option));
+                    this.elements.optionsGrid.appendChild(button);
+                });
+            }
+
+            async handleGuess(guess) {
+                if (!this.isGameActive) return;
+
+                try {
+                    const response = await fetch('/api/guess', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            guess: guess,
+                            questionId: this.currentQuestion.questionId
+                        })
+                    });
+
+                    const result = await response.json();
+
+                    if (result.correct) {
+                        this.score += 10;
+                        this.showFeedback('Correct! +10 points', 'correct');
+                    } else {
+                        this.showFeedback(`Wrong! Correct answer: ${result.correctAnswer}`, 'incorrect');
+                        this.endGame();
+                    }
+
+                    this.updateScore();
+                    this.elements.nextBtn.style.display = 'block';
+                    
+                } catch (error) {
+                    console.error('Error submitting guess:', error);
+                }
+            }
+
+            showFeedback(message, type) {
+                this.elements.feedback.textContent = message;
+                this.elements.feedback.className = `feedback ${type}`;
+                this.elements.feedback.style.display = 'block';
+            }
+
+            hideFeedback() {
+                this.elements.feedback.style.display = 'none';
+            }
+
+            updateScore() {
+                this.elements.scoreDisplay.textContent = `Score: ${this.score}`;
+            }
+
+            endGame() {
+                this.isGameActive = false;
+                this.elements.finalScore.textContent = this.score;
+                this.elements.gameOver.style.display = 'block';
+                
+                const buttons = this.elements.optionsGrid.getElementsByClassName('option-btn');
+                for (let button of buttons) {
+                    button.disabled = true;
+                    button.style.opacity = '0.6';
+                }
+            }
+
+            async submitScore() {
+                const playerName = this.elements.playerName.value.trim();
+                if (!playerName) {
+                    alert('Please enter your name!');
+                    return;
+                }
+
+                try {
+                    await fetch('/api/score', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            playerName: playerName,
+                            score: this.score
+                        })
+                    });
+
+                    this.loadLeaderboard();
+                    this.elements.submitScoreBtn.disabled = true;
+                    this.elements.playerName.disabled = true;
+                    alert('Score submitted to leaderboard!');
+                } catch (error) {
+                    console.error('Error submitting score:', error);
+                }
+            }
+
+            async loadLeaderboard() {
+                try {
+                    const response = await fetch('/api/leaderboard');
+                    const leaderboard = await response.json();
+                    
+                    this.elements.leaderboardList.innerHTML = '';
+                    
+                    if (leaderboard.length === 0) {
+                        this.elements.leaderboardList.innerHTML = '<div class="leaderboard-item">No scores yet!</div>';
+                        return;
+                    }
+
+                    leaderboard.forEach((entry, index) => {
+                        const item = document.createElement('div');
+                        item.className = 'leaderboard-item';
+                        item.innerHTML = `
+                            <span class="player-name">${index + 1}. ${entry.playerName}</span>
+                            <span class="player-score">${entry.score} points</span>
+                        `;
+                        this.elements.leaderboardList.appendChild(item);
+                    });
+                } catch (error) {
+                    console.error('Error loading leaderboard:', error);
+                }
+            }
+
+            restartGame() {
+                this.score = 0;
+                this.isGameActive = true;
+                this.elements.gameOver.style.display = 'none';
+                this.elements.submitScoreBtn.disabled = false;
+                this.elements.playerName.disabled = false;
+                this.elements.playerName.value = '';
+                this.updateScore();
+                this.loadQuestion();
+                this.hideFeedback();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new EmojiGame();
+        });
+    </script>
+</body>
+</html>
