@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Quiz Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Trivia Quiz</h1>
+
+        <div class="game-area">
+            <p id="questionDisplay" class="question-display">Loading question...</p>
+            <div id="optionsContainer" class="options-container">
+                <button class="option-btn" disabled>Loading options...</button>
+            </div>
+            <p id="feedbackMessage" class="feedback-message"></p>
+            <p class="score-display">Score: <span id="currentScore">0</span> / <span id="totalQuestionsAnswered">0</span></p>
+            <button id="restartQuizBtn" class="main-btn">Start New Quiz</button>
+        </div>
+
+        <div id="finalScoreArea" class="final-score-area hidden">
+            <h2>Quiz Over!</h2>
+            <p>Your final score is: <span id="finalScoreValue">0</span> / <span id="totalQuestionsValue">0</span></p>
+            <button id="playAgainBtn" class="main-btn">Play Again</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

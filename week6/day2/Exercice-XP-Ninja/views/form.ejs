@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Emoji Greeting</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome! Choose Your Emoji Greeting</h1>
+
+    <% if (error) { %>
+      <p class="error"><%= error %></p>
+    <% } %>
+
+    <form action="/greet" method="POST">
+      <input type="text" name="name" placeholder="Enter your name" required />
+      <select name="emoji" required>
+        <% emojis.forEach(e => { %>
+          <option value="<%= e %>"><%= e %></option>
+        <% }); %>
+      </select>
+      <button type="submit">Greet Me!</button>
+    </form>
+  </div>
+</body>
+</html>
