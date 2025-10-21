@@ -1,0 +1,134 @@
+[
+  {
+    "firstName": "Amina",
+    "lastName": "El Idrissi",
+    "email": "amina.elidrissi@example.com",
+    "location": "Casablanca",
+    "experienceYears": 1,
+    "skills": ["React", "JavaScript", "HTML", "CSS"],
+    "availabilityDate": "2025-11-01",
+    "stage": "SOURCED",
+    "notes": "Portfolio: Strong React projects, responsive design focus"
+  },
+  {
+    "firstName": "Youssef",
+    "lastName": "Benali",
+    "email": "youssef.benali@example.com",
+    "location": "Casablanca",
+    "experienceYears": 2,
+    "skills": ["React", "JavaScript", "Git", "Node.js"],
+    "availabilityDate": "2025-11-15",
+    "stage": "SOURCED",
+    "notes": "Full-stack capabilities, good communication skills"
+  },
+  {
+    "firstName": "Fatima",
+    "lastName": "Zahra",
+    "email": "fatima.zahra@example.com",
+    "location": "Rabat",
+    "experienceYears": 0,
+    "skills": ["React", "JavaScript", "HTML"],
+    "availabilityDate": "2025-11-10",
+    "stage": "SCREEN",
+    "notes": "Recent graduate, eager to learn, strong fundamentals"
+  },
+  {
+    "firstName": "Mohammed",
+    "lastName": "Aziz",
+    "email": "mohammed.aziz@example.com",
+    "location": "Casablanca",
+    "experienceYears": 1,
+    "skills": ["React", "JavaScript", "Git", "TypeScript"],
+    "availabilityDate": "2025-10-25",
+    "stage": "SOURCED",
+    "notes": "TypeScript expert, modern tooling experience"
+  },
+  {
+    "firstName": "Salma",
+    "lastName": "Tahiri",
+    "email": "salma.tahiri@example.com",
+    "location": "Casablanca",
+    "experienceYears": 0,
+    "skills": ["React", "JavaScript", "CSS", "Git"],
+    "availabilityDate": "2025-11-05",
+    "stage": "INTERVIEW",
+    "notes": "Strong design sense, previous internship experience"
+  },
+  {
+    "firstName": "Omar",
+    "lastName": "Rami",
+    "email": "omar.rami@example.com",
+    "location": "Marrakech",
+    "experienceYears": 3,
+    "skills": ["Python", "Django", "SQL", "Docker"],
+    "availabilityDate": "2025-12-01",
+    "stage": "SOURCED",
+    "notes": "Backend specialist, DevOps skills"
+  },
+  {
+    "firstName": "Nadia",
+    "lastName": "Hassani",
+    "email": "nadia.hassani@example.com",
+    "location": "Casablanca",
+    "experienceYears": 2,
+    "skills": ["Python", "SQL", "React", "JavaScript"],
+    "availabilityDate": "2025-11-20",
+    "stage": "SCREEN",
+    "notes": "Full-stack developer, data analysis background"
+  },
+  {
+    "firstName": "Hassan",
+    "lastName": "Mouhib",
+    "email": "hassan.mouhib@example.com",
+    "location": "Tangier",
+    "experienceYears": 1,
+    "skills": ["Python", "SQL", "Pandas", "NumPy"],
+    "availabilityDate": "2025-11-01",
+    "stage": "SOURCED",
+    "notes": "Data engineering focus, analytics expertise"
+  },
+  {
+    "firstName": "Karima",
+    "lastName": "Alaoui",
+    "email": "karima.alaoui@example.com",
+    "location": "Casablanca",
+    "experienceYears": 4,
+    "skills": ["React", "JavaScript", "TypeScript", "Node.js", "SQL"],
+    "availabilityDate": "2025-12-15",
+    "stage": "INTERVIEW",
+    "notes": "Senior developer, team lead experience"
+  },
+  {
+    "firstName": "Rachid",
+    "lastName": "Benjelloun",
+    "email": "rachid.benjelloun@example.com",
+    "location": "Fes",
+    "experienceYears": 1,
+    "skills": ["JavaScript", "HTML", "CSS", "Bootstrap"],
+    "availabilityDate": "2025-10-28",
+    "stage": "SOURCED",
+    "notes": "Frontend focused, UI/UX interest"
+  },
+  {
+    "firstName": "Laila",
+    "lastName": "Chraibi",
+    "email": "laila.chraibi@example.com",
+    "location": "Casablanca",
+    "experienceYears": 0,
+    "skills": ["React", "JavaScript", "Git", "HTML", "CSS"],
+    "availabilityDate": "2025-10-22",
+    "stage": "SOURCED",
+    "notes": "Fresh graduate, bootcamp certification, very motivated"
+  },
+  {
+    "firstName": "Amine",
+    "lastName": "Sekkat",
+    "email": "amine.sekkat@example.com",
+    "location": "Rabat",
+    "experienceYears": 2,
+    "skills": ["Python", "SQL", "JavaScript", "React"],
+    "availabilityDate": "2025-11-08",
+    "stage": "SCREEN",
+    "notes": "Versatile developer, quick learner"
+  }
+]
